@@ -13,15 +13,66 @@ class _PerguntaAppState extends State<PerguntaApp> {
   final List<Map<String, Object>> _perguntas = const [
     {
       'texto': 'Qual sua cor favorita ?',
-      'resposta': ['branco', 'preto', 'azul', 'vermelho']
+      'resposta': [
+        {
+          'texto': 'branco',
+          'nota': 10,
+        },
+        {
+          'texto': 'preto',
+          'nota': 10,
+        },
+        {
+          'texto': 'azul',
+          'nota': 10,
+        },
+        {
+          'texto': 'vermelho',
+          'nota': 10,
+        },
+      ]
     },
     {
       'texto': 'Qual seu melhor amigo ?',
-      'resposta': ['deivid', 'gabriel', 'tezinha', 'juliano']
+      'resposta': [
+        {
+          'texto': 'deivid',
+          'nota': 0,
+        },
+        {
+          'texto': 'gabriel',
+          'nota': 10,
+        },
+        {
+          'texto': 'tezinha',
+          'nota': 0,
+        },
+        {
+          'texto': 'juliano',
+          'nota': 0,
+        },
+      ]
     },
     {
       'texto': 'Qual seu animal preferido ?',
-      'resposta': ['gato', 'cachorro', 'cobra', 'tigre']
+      'resposta': [
+        {
+          'texto': 'gato',
+          'nota': 10,
+        },
+        {
+          'texto': 'cachorro',
+          'nota': 10,
+        },
+        {
+          'texto': 'cobra',
+          'nota': 10,
+        },
+        {
+          'texto': 'tigre',
+          'nota': 10,
+        },
+      ]
     },
   ];
   bool get temPerguntaSelecionada {
@@ -32,8 +83,6 @@ class _PerguntaAppState extends State<PerguntaApp> {
     if (this.temPerguntaSelecionada) {
       setState(() {
         _indicePergunta++;
-        print('pergunta respondida');
-        print(this._indicePergunta);
       });
     }
   }
