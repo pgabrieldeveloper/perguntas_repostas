@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:perguntas_respostas/questao.dart';
 import 'package:perguntas_respostas/questionario.dart';
-import 'package:perguntas_respostas/resposta.dart';
+
 import 'package:perguntas_respostas/resultado.dart';
 
 main() {
@@ -25,6 +24,9 @@ class _PerguntaAppState extends State<PerguntaApp> {
       'resposta': ['gato', 'cachorro', 'cobra', 'tigre']
     },
   ];
+  bool get temPerguntaSelecionada {
+    return _indicePergunta < _perguntas.length;
+  }
 
   void _responder() {
     if (this.temPerguntaSelecionada) {
@@ -36,17 +38,8 @@ class _PerguntaAppState extends State<PerguntaApp> {
     }
   }
 
-  bool get temPerguntaSelecionada {
-    return _indicePergunta < _perguntas.length;
-  }
-
   @override
   Widget build(BuildContext context) {
-    List<String> respostas = temPerguntaSelecionada
-        ? _perguntas[_indicePergunta].cast()['resposta']
-        : [];
-    List<Widget> widgets =
-        respostas.map((text) => Resposta(text, _responder)).toList();
     //for (String textResp in _perguntas[_indicePergunta].cast()['resposta']) {
     //  widgets.add(Resposta(textResp, _responder));
     //}
@@ -57,7 +50,11 @@ class _PerguntaAppState extends State<PerguntaApp> {
           title: Text('Perguntas'),
         ),
         body: temPerguntaSelecionada
-            ? Questionario(widgets, _perguntas, _responder, _indicePergunta)
+            ? Questionario(
+                perguntas: _perguntas,
+                indicePergunta: _indicePergunta,
+                onSelect: _responder,
+              )
             : Resultado(),
       ),
     );

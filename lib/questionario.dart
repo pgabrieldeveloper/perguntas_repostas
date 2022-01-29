@@ -1,20 +1,32 @@
 import 'package:flutter/cupertino.dart';
 import 'package:perguntas_respostas/questao.dart';
+import 'package:perguntas_respostas/resposta.dart';
 
 class Questionario extends StatelessWidget {
-  final List<Map<String, Object>> _perguntas;
-  final List<Widget> _Respostas;
-  final int _indicePergunta;
+  final List<Map<String, Object>> perguntas;
+  final int indicePergunta;
   final void Function() onSelect;
-  Questionario(
-      this._Respostas, this._perguntas, this.onSelect, this._indicePergunta);
+
+  bool get temPerguntaSelecionada {
+    return indicePergunta < perguntas.length;
+  }
+
+  Questionario({
+    required this.perguntas,
+    required this.indicePergunta,
+    required this.onSelect,
+  });
 
   @override
   Widget build(BuildContext context) {
+    print(perguntas[indicePergunta]['texto'].toString());
+    List<String> respostas = temPerguntaSelecionada
+        ? perguntas[indicePergunta].cast()['resposta']
+        : [];
     return Column(
       children: [
-        Qeustao(_perguntas[_indicePergunta]['texto'].toString()),
-        ..._Respostas
+        Qeustao(perguntas[indicePergunta]['texto'].toString()),
+        ...respostas.map((text) => Resposta(text, onSelect)).toList()
       ],
     );
   }
