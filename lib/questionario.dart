@@ -5,7 +5,7 @@ import 'package:perguntas_respostas/resposta.dart';
 class Questionario extends StatelessWidget {
   final List<Map<String, Object>> perguntas;
   final int indicePergunta;
-  final void Function() onSelect;
+  final void Function(int) onSelect;
 
   bool get temPerguntaSelecionada {
     return indicePergunta < perguntas.length;
@@ -26,9 +26,11 @@ class Questionario extends StatelessWidget {
     return Column(
       children: [
         Qeustao(perguntas[indicePergunta]['texto'].toString()),
-        ...respostas
-            .map((resp) => Resposta(resp['texto'].toString(), onSelect))
-            .toList()
+        ...respostas.map((res) {
+          return Resposta(res['texto'].toString(), () {
+            onSelect(int.parse(res['nota'].toString()));
+          });
+        })
       ],
     );
   }

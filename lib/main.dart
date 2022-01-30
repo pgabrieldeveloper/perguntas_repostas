@@ -9,6 +9,7 @@ main() {
 
 class _PerguntaAppState extends State<PerguntaApp> {
   var _indicePergunta = 0;
+  var _pontuacaoTotal = 0;
 
   final List<Map<String, Object>> _perguntas = const [
     {
@@ -45,11 +46,11 @@ class _PerguntaAppState extends State<PerguntaApp> {
         },
         {
           'texto': 'tezinha',
-          'nota': 0,
+          'nota': 5,
         },
         {
           'texto': 'juliano',
-          'nota': 0,
+          'nota': 9,
         },
       ]
     },
@@ -79,12 +80,21 @@ class _PerguntaAppState extends State<PerguntaApp> {
     return _indicePergunta < _perguntas.length;
   }
 
-  void _responder() {
+  void _responder(int pontuacao) {
     if (this.temPerguntaSelecionada) {
       setState(() {
         _indicePergunta++;
+        _pontuacaoTotal += pontuacao;
       });
+      print(_pontuacaoTotal);
     }
+  }
+
+  void _reiniciar() {
+    setState(() {
+      _indicePergunta = 0;
+      _pontuacaoTotal = 0;
+    });
   }
 
   @override
@@ -104,7 +114,7 @@ class _PerguntaAppState extends State<PerguntaApp> {
                 indicePergunta: _indicePergunta,
                 onSelect: _responder,
               )
-            : Resultado(),
+            : Resultado(_pontuacaoTotal, _reiniciar),
       ),
     );
   }
